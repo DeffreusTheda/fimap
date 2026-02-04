@@ -250,12 +250,12 @@ class baseClass (object):
                 self._log("WARNING: I wanted to backup your old fimap_result to: %s" %(backupfile), self.LOG_WARN)
                 self._log("But this file already exists! Please define a backup path:", self.LOG_WARN)
                 backupfile = raw_input("Backup path: ")
-            print "Creating backup of your original XML to '%s'..." %(backupfile)
+            print("Creating backup of your original XML to '%s'...", backupfile)
             shutil.copy(self.xmlfile, backupfile)
-            print "Committing changes to orginal XML..."
+            print("Committing changes to orginal XML...")
             self.saveXML()
-            print "All done."
-            print "Please rerun fimap."
+            print("All done.")
+            print("Please rerun fimap.")
             sys.exit(0)
         
     def mergeXML(self, newXML):
@@ -274,7 +274,7 @@ class baseClass (object):
 
                         if (not self.existsXMLEntry(hostname, new_file, new_path)):
                             doSave = True
-                            print "Adding new informations from domain '%s'..." %(hostname)
+                            print("Adding new informations from domain '%s'...", hostname)
                             domainNode = self.findDomainNode(hostname)
                             self._appendXMLChild(domainNode, cc)
                             newVulns += 1
@@ -283,9 +283,9 @@ class baseClass (object):
                                 newDomains += 1
                              
         if (doSave):
-            print "Saving XML...",
+            print("Saving XML..."),
             self.saveXML()
-            print "All done."
+            print("All done.")
         return(newVulns, newDomains)
                     
 
@@ -569,7 +569,7 @@ class baseClass (object):
             finally:
                 del(b)
 
-        except Exception, err:
+        except Exception as err:
             self._log(err, self.LOG_WARN)
 
         return result,headers
@@ -591,14 +591,14 @@ class PoolHTTPConnection(httplib.HTTPConnection):
                 self.sock = socket.socket(af, socktype, proto)
                 self.sock.settimeout(SOCKETTIMEOUT)
                 self.sock.connect(sa)
-            except socket.error, msg:
+            except socket.error:
                 if self.sock:
                     self.sock.close()
                 self.sock = None
                 continue
             break
         if not self.sock:
-            raise socket.error, msg
+            raise socket.error
 
 class PoolHTTPHandler(urllib2.HTTPHandler):
     def http_open(self, req):
